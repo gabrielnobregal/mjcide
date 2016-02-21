@@ -1,0 +1,106 @@
+
+# MicroJava specs
+
+A MicroJava program consists of a single program file with static fields and static methods. There are no external classes but only inner classes that can be used as data types.
+
+![Microjava program in dev environment]
+(https://a.fsdn.com/con/app/proj/mjcide/screenshots/s2.PNG)
+(https://a.fsdn.com/con/app/proj/mjcide/screenshots/s3.PNG)
+(https://a.fsdn.com/con/app/proj/mjcide/screenshots/s4.PNG)
+
+
+The main method of a MicroJava program is always called main(). When a MicroJava program is called this method is executed.
+
+* There are
+	-	Constants of type int (e.g. 3) and char (e.g. 'x') but no string constants.
+	-	Variables: all variables of the program are static.
+	-	Primitive types: int, char (Ascii)
+	-	Reference types: onedimensional arrays like in Java as wellas classes with fields 
+		but without methods.
+	-	Static methods in the main class.
+
+* There is no garbage collector (allocated objects are only deallocated when the program ends).
+
+* Predeclared procedures are ord, chr, len.
+
+## Syntax
+
+Program 	=	"program" ident {ConstDecl | VarDecl | ClassDecl} 
+		        "{" {MethodDecl} "}".
+
+ConstDecl	=	"final" Type ident "=" (number | charConst) ";".
+
+VarDecl	=	Type ident {"," ident } ";".
+
+ClassDecl	=	"class" ident "{" {VarDecl} "}".
+
+MethodDecl	=	(Type | "void") ident "(" [FormPars] ")" {VarDecl} Block.
+
+FormPars	=	Type ident  {"," Type ident}.
+
+Type	=	ident ["[" "]"].
+
+Block	= "{" {Statement} "}".
+
+Statement	=	Designator ("=" Expr | "(" [ActPars] ")" | "++" | "--") ";"
+	|	"if" "(" Condition ")" Statement ["else" Statement]
+	|	"while" "(" Condition ")" Statement
+	|	"break" ";"
+	|	"return" [Expr] ";"
+	|	"read" "(" Designator ")" ";"
+	|	"print" "(" Expr ["," number] ")" ";"
+	|	Block
+	|	";".
+
+ActPars	=	Expr {"," Expr}.
+
+Condition	=	CondTerm {"||" CondTerm}.
+
+CondTerm	=	CondFact {"&&" CondFact}.
+
+CondFact	=	Expr Relop Expr.
+
+Relop	=	"==" | "!=" | ">" | ">=" | "<" | "<=".
+
+Expr	=	["-"] Term {Addop Term}.
+
+Term	=	Factor {Mulop Factor}.
+
+Factor	=	Designator ["(" [ActPars] ")"]
+	|	number
+	|	charConst
+	|	"new" ident ["[" Expr "]"]
+	|	"(" Expr ")".
+
+Designator	=	ident {"." ident | "[" Expr "]"}.
+
+Addop	=	"+" | "-".
+
+Mulop	=	"*" | "/" | "%".
+
+
+## Lexical structure
+
+### Terminal classes: 	
+                      ident     = letter {letter | digit | "_"}.
+                      number    = digit {digit}.
+                      charConst = "'" char "'".  // including '\r' and '\n'
+
+
+### Keywords: 	
+               program	class
+               if	else	while	read	print	return	break
+               void	final	new
+
+
+### Operators: 	
+               +	-	*	/	%	++	--
+	       ==	!=	>	>=	<	<=
+	      &&	||
+	      (	)	[	]	{	} 
+	      =	;	,	.
+
+
+### Comments: 	
+              // to the end of line
+

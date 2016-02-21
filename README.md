@@ -3,8 +3,11 @@
 
 A MicroJava program consists of a single program file with static fields and static methods. There are no external classes but only inner classes that can be used as data types.
 
+![Microjava program in dev environment]
 (https://a.fsdn.com/con/app/proj/mjcide/screenshots/s2.PNG)
+![Microjava program in dev environment]
 (https://a.fsdn.com/con/app/proj/mjcide/screenshots/s3.PNG)
+![Microjava program in dev environment]
 (https://a.fsdn.com/con/app/proj/mjcide/screenshots/s4.PNG)
 
 
